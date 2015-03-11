@@ -18,12 +18,19 @@
 
          \begin{circuitikz}
 
-            % We reduce the size of all resistors in the diagram
+            % We reduce the size of all resistors and diodes in the diagram
             \tikzset{resistor/.append style={bipoles/length=0.6cm}}
+            \tikzset{diode/.append style={bipoles/length=0.6cm}}
 
             \draw (1,0)
             to[battery, lx={$\SI{12}{\volt}$ and $\SI{4.5}{\ampere\hour}$}] (1, 2)
             to[R, lx={$\SI{68}{\ohm}$ and $\SI{0.5}{\watt}$}] (1, 3)
+            to[short] (2,3)
+            ;
+
+            \draw (1,2)
+            to[short] (2,2)
+            to[diode, l_={$1N4007$}] (2,3)      % we use 'l_' to specify that the label should appear on the right of the diode
             ;
 
          \end{circuitikz}
