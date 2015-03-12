@@ -26,33 +26,54 @@
             \tikzset{battery/.append style={bipoles/length=1cm}}
 
 
-
             % Begin specifying the circuit
-            \draw (1, 3) to[short, o-] (3, 3);
+            \draw (1, 3) to[short, o-] (3, 3);          % We start with a line with a circular node on one end (from (1,3) to (3,3) on the grid)
 
-            \draw (1, 0) to[short, o-] (3, 0);
+            \draw (1, 0) to[short, o-] (3, 0);          % A similar line is drawn below it.
 
-            \draw (2, 0) node[ground] {};
+            \draw (2, 0) node[ground] {};               % We add a monopole (the GND symbol) at the specified location
 
-            \draw (0.25, 3) node[] {$+\SI{12}{\volt}$ DC};
+            \draw (0.25, 3) node[] {$+\SI{12}{\volt}$ DC};      % We place free floating text as nodes at specified location
 
             \draw (0.25, 0) node[] {DC GND};
 
-            \draw (3, 0)
-            to[battery, l=\twoline{\SI{12}{\volt}}{\SI{4.5}{\ampere\hour}}] (3, 2)
-            to[R, l=\twoline{\SI{68}{\ohm}}{\SI{0.5}{\watt}}] (3, 3)
+            \draw (3, 0)                                % We draw a path from (3,0). Every segment contains a component or a short with the ending co.ods at the end
+            to[battery, l=\twoline{\SI{12}{\volt}}{\SI{4.5}{\ampere\hour}}] (3, 2)      % Note the use of \twoline for two line labels
+            to[R, l=\twoline{\SI{68}{\ohm}}{\SI{0.5}{\watt}}] (3, 3)                    % Note the use of \SI to place units after the value
             to[short] (4.5, 3)
             ;
 
             \draw (3, 2)
             to[short] (4.5, 2)
-            to[diode, l_={1N4007}] (4.5, 3)      % we use 'l_' to specify that the label should appear on the right of the diode
+            to[diode, l^={1N4007}] (4.5, 3)      % we use 'l_' to specify that the label should appear on the right of the diode
             ;
 
             \draw (4.5, 2)
-            to[pR, l_={$\SI{10}{k\ohm}$}] (4.5,0)
+            to[pR, l_={$\SI{10}{k\ohm}$}] (4.5, 1)
+            to[short] (4.5, 0)
             to[short] (3, 0)
             ;
+
+            \draw (4.5, 3)
+            to[short] (6, 3)
+            to[R, l=$\SI{1}{k\ohm}$] (6, 2)
+            ;
+
+            \draw (6, 1.5)          % An npn transistor is a tri-pole where we name the component as well as its three poles
+            node[npn](t1) {}        % We name this component 't1' which is how we refer to it later
+            (t1.base) node[anchor=east] {}              % We specify that the anchor points east where north points towards teh bottom
+            (t1.collector) node[anchor=south] {}
+            (t1.emitter) node[anchor=north, xshift=-0.5cm, yshift=0.5cm] {BC548}        % We use the emitter label to label the whole transistor. We use xshift and yshift to move the position of the label
+            ;
+
+            \draw (t1.emitter)          % Instead of the starting position we specify the pole/anchor from the transistor
+            to[empty led, l={Red}] (6, 0)
+            to[short] (4.5, 0)
+            ;
+
+            \draw (t1.base) to[short] (4.75, 1.5);
+
+
 
          \end{circuitikz}
 
