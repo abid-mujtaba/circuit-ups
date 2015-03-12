@@ -49,20 +49,20 @@
             ;
 
             \draw (4.5, 2)
-            to[pR, l_={$\SI{10}{k\ohm}$}] (4.5, 1)
+            to[pR, l_=$\SI{10}{k\ohm}$] (4.5, 1)
             to[short] (4.5, 0)
             to[short] (3, 0)
             ;
 
             \draw (4.5, 3)
             to[short] (6, 3)
-            to[R, l=$\SI{1}{k\ohm}$] (6, 2)
+            to[R, l_=$\SI{1}{k\ohm}$] (6, 2)
             ;
 
             \draw (6, 1.5)          % An npn transistor is a tri-pole where we name the component as well as its three poles
             node[npn](t1) {}        % We name this component 't1' which is how we refer to it later
-            (t1.base) node[anchor=east] {}              % We specify that the anchor points east where north points towards teh bottom
-            (t1.collector) node[anchor=south] {}
+            (t1.base) node[anchor=west] {}              % We specify that the anchor points east where north points towards teh bottom
+            (t1.collector) node[] {}
             (t1.emitter) node[anchor=north, xshift=-0.5cm, yshift=0.5cm] {BC548}        % We use the emitter label to label the whole transistor. We use xshift and yshift to move the position of the label
             ;
 
@@ -73,6 +73,28 @@
 
             \draw (t1.base) to[short] (4.75, 1.5);
 
+            \draw (6, 2)
+            to[short] (6.5, 2)
+            to[pR, l_=$\SI{22}{k\ohm}$] (7.5, 2)
+            ;
+
+            \draw (6.25, 2)                 % We draw the shorted path from the wire to the arrow on top of the potentiometer
+            to[short] (6.25, 2.5)
+            to[short] (7, 2.5)
+            to[short] (7, 2.25)
+            ;
+
+            \draw (8.25, 3)
+            to[Tpnp, n=t2] (7.25, 3)            % Since we want a rotated pnp transistor with the current flowing left to right we use the 'Tpnp' (T at the start( notation to put the transistor in the path. We use the 'n' option to name it 't2' which will give us access to its anchors later.
+            to[short] (6, 3)
+            ;
+
+            \draw (7.75, 3.25) node[] {TIP 127};        % Place the label of the transistor as a separate empty node (avoid complications due to rotation and the like)
+
+            \draw (t2.base)             % Connect the base of the pnp transistor to the variable resistor 
+            to[short] (7.75, 2)
+            to[short] (7.5, 2)
+            ;
 
 
          \end{circuitikz}
