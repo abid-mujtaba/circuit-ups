@@ -19,10 +19,13 @@
 
             \tikzstyle{every node}=[font=\tiny]         % We reduce the font size of all text rendered in the circuit diagram
 
-            % We reduce the size of all resistors and diodes in the diagram
-            \tikzset{resistor/.append style={bipoles/length=0.6cm}}
-            \tikzset{diode/.append style={bipoles/length=0.6cm}}
+            % We reduce the size of all components in the diagram
+            \ctikzset{bipoles/length=0.6cm}
+            % We increase the size of the battery for aesthetic reasons
+            \tikzset{battery/.append style={bipoles/length=1cm}}
 
+
+            % Begin specifying the circuit
             \draw (1, 3) to[short, o-] (3, 3);
 
             \draw (1, 0) to[short, o-] (3, 0);
@@ -36,12 +39,17 @@
             \draw (3, 0)
             to[battery, lx={$\SI{12}{\volt}$ and $\SI{4.5}{\ampere\hour}$}] (3, 2)
             to[R, lx={$\SI{68}{\ohm}$ and $\SI{0.5}{\watt}$}] (3, 3)
-            to[short] (4, 3)
+            to[short] (5, 3)
             ;
 
             \draw (3, 2)
-            to[short] (4, 2)
-            to[diode, l_={1N4007}] (4, 3)      % we use 'l_' to specify that the label should appear on the right of the diode
+            to[short] (5, 2)
+            to[diode, l_={1N4007}] (5, 3)      % we use 'l_' to specify that the label should appear on the right of the diode
+            ;
+
+            \draw (5, 2)
+            to[pR, l_={$\SI{10}{k\ohm}$}] (5,0)
+            to[short] (3, 0)
             ;
 
          \end{circuitikz}
