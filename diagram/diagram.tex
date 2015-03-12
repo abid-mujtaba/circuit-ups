@@ -2,11 +2,12 @@
 
 \documentclass{article}
 
+\usepackage{amsmath}
 \usepackage{tikz}
 \usepackage[siunitx]{circuitikz}
 
-% We define a new command which uses the tabular environment to construct two-line labels
-\newcommand\twoline[2]{{\begin{tabular}{c}#1\\#2\end{tabular}}}
+% We define a new command which uses sub-stack from the amsmath package to create two line labels 
+\newcommand\twoline[2]{$\substack{#1\\#2}$}         % Note that \substack must be containined within the math env $$. The advantage is that we don't have to specify $ around the arguments we provide to \twoline
 
 
 \begin{document}
@@ -25,6 +26,7 @@
             \tikzset{battery/.append style={bipoles/length=1cm}}
 
 
+
             % Begin specifying the circuit
             \draw (1, 3) to[short, o-] (3, 3);
 
@@ -37,18 +39,18 @@
             \draw (0.25, 0) node[] {DC GND};
 
             \draw (3, 0)
-            to[battery, l=\twoline{$\SI{12}{\volt}$}{$\SI{4.5}{\ampere\hour}$}] (3, 2)
-            to[R, l=\twoline{$\SI{68}{\ohm}$}{$\SI{0.5}{\watt}$}] (3, 3)
-            to[short] (5, 3)
+            to[battery, l=\twoline{\SI{12}{\volt}}{\SI{4.5}{\ampere\hour}}] (3, 2)
+            to[R, l=\twoline{\SI{68}{\ohm}}{\SI{0.5}{\watt}}] (3, 3)
+            to[short] (4.5, 3)
             ;
 
             \draw (3, 2)
-            to[short] (5, 2)
-            to[diode, l_={1N4007}] (5, 3)      % we use 'l_' to specify that the label should appear on the right of the diode
+            to[short] (4.5, 2)
+            to[diode, l_={1N4007}] (4.5, 3)      % we use 'l_' to specify that the label should appear on the right of the diode
             ;
 
-            \draw (5, 2)
-            to[pR, l_={$\SI{10}{k\ohm}$}] (5,0)
+            \draw (4.5, 2)
+            to[pR, l_={$\SI{10}{k\ohm}$}] (4.5,0)
             to[short] (3, 0)
             ;
 
