@@ -5,8 +5,8 @@
 \usepackage{tikz}
 \usepackage[siunitx]{circuitikz}
 
-
-\include{two_line_label}    % Include auxiliary file which defines two-line labels
+% We define a new command which uses the tabular environment to construct two-line labels
+\newcommand\twoline[2]{{\begin{tabular}{c}#1\\#2\end{tabular}}}
 
 
 \begin{document}
@@ -37,8 +37,8 @@
             \draw (0.25, 0) node[] {DC GND};
 
             \draw (3, 0)
-            to[battery, lx={$\SI{12}{\volt}$ and $\SI{4.5}{\ampere\hour}$}] (3, 2)
-            to[R, lx={$\SI{68}{\ohm}$ and $\SI{0.5}{\watt}$}] (3, 3)
+            to[battery, l=\twoline{$\SI{12}{\volt}$}{$\SI{4.5}{\ampere\hour}$}] (3, 2)
+            to[R, l=\twoline{$\SI{68}{\ohm}$}{$\SI{0.5}{\watt}$}] (3, 3)
             to[short] (5, 3)
             ;
 
