@@ -41,22 +41,17 @@
             \draw (3, 0)                                % We draw a path from (3,0). Every segment contains a component or a short with the ending co.ods at the end
             to[battery, l=\twoline{\SI{12}{\volt}}{\SI{4.5}{\ampere\hour}}] (3, 2)      % Note the use of \twoline for two line labels
             to[R, l=\twoline{\SI{68}{\ohm}}{\SI{0.5}{\watt}}] (3, 3)                    % Note the use of \SI to place units after the value
-            to[short] (4.5, 3)
+            -- (4.5, 3)
             ;
 
-            \draw (3, 2)
-            to[short] (4.5, 2)
+            \draw (3, 2) -- (4.5, 2)
             to[diode, l^={1N4007}] (4.5, 3)      % we use 'l_' to specify that the label should appear on the right of the diode
             ;
 
             \draw (4.5, 2)
-            to[pR, l_=$\SI{10}{k\ohm}$] (4.5, 1)
-            to[short] (4.5, 0)
-            to[short] (3, 0)
-            ;
+            to[pR, l_=$\SI{10}{k\ohm}$] (4.5, 1) |- (3,0);          % Note use of |- to create a wired path with a corner
 
-            \draw (4.5, 3)
-            to[short] (6, 3)
+            \draw (4.5, 3) -- (6, 3)
             to[R, l_=$\SI{1}{k\ohm}$] (6, 2)
             ;
 
@@ -68,34 +63,26 @@
             ;
 
             \draw (t1.emitter)          % Instead of the starting position we specify the pole/anchor from the transistor
-            to[empty led, l={Red}] (6, 0)
-            to[short] (4.5, 0)
+            to[empty led, l={Red}] (6, 0) -- (4.5, 0)
             ;
 
-            \draw (t1.base) to[short] (4.75, 1.5);
+            \draw (t1.base) -- (4.75, 1.5);
 
-            \draw (6, 2)
-            to[short] (6.5, 2)
+            \draw (6, 2) -- (6.5, 2)
             to[pR, l_=$\SI{22}{k\ohm}$] (7.5, 2)
             ;
 
-            \draw (6.25, 2)                 % We draw the shorted path from the wire to the arrow on top of the potentiometer
-            to[short] (6.25, 2.5)
-            to[short] (7, 2.5)
-            to[short] (7, 2.25)
-            ;
+            \draw (6.25, 2) -- (6.25, 2.5) -| (7, 2.25);                 % We draw the shorted path from the wire to the arrow on top of the potentiometer
 
             \draw (8.25, 3)
-            to[Tpnp, n=t2] (7.25, 3)            % Since we want a rotated pnp transistor with the current flowing left to right we use the 'Tpnp' (T at the start( notation to put the transistor in the path. We use the 'n' option to name it 't2' which will give us access to its anchors later.
-            to[short] (6, 3)
+            to[Tpnp, n=t2] (7.25, 3) -- (6, 3)            % Since we want a rotated pnp transistor with the current flowing left to right we use the 'Tpnp' (T at the start( notation to put the transistor in the path. We use the 'n' option to name it 't2' which will give us access to its anchors later.
             ;
 
             \draw (7.75, 3.25) node[] {TIP 127};        % Place the label of the transistor as a separate empty node (avoid complications due to rotation and the like)
 
-            \draw (t2.base)             % Connect the base of the pnp transistor to the variable resistor 
-            to[short] (7.75, 2)
-            to[short] (7.5, 2)
-            ;
+            \draw (t2.base) -- (7.75, 2) -- (7.5, 2);             % Connect the base of the pnp transistor to the variable resistor using the -- notation. 
+
+            \draw (t2.collector) -| (9.25, 2.5);                  % The -| notation allows us to construct right-angled shorted wires between the specified nodes. |- draws the corner in the opposite direction
 
 
 
