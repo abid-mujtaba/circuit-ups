@@ -7,6 +7,9 @@
 \usepackage{tikz}
 \usepackage[siunitx]{circuitikz}
 
+% Suppress page numbering
+\pagenumbering{gobble}
+
 % Include the tex code that defines the 3 pin IC we will use for the 7805
 \input{ic3pin}
 
@@ -87,6 +90,10 @@
             \draw (t2.base) -- (7.75, 2) -- (7.5, 2);             % Connect the base of the pnp transistor to the variable resistor using the -- notation. 
 
             \draw (9.25, 2) node[ic3pin] (ic3) {\textbf{7805}};
+
+            \draw (9.1, 2.75) node[] {IN};
+            \draw (8.95, 1.25) node[] {COM};
+            \draw (10.2, 2.1) node[] {OUT};
 
             \draw (t2.collector) -| (ic3.pin1);                  % The -| notation allows us to construct right-angled shorted wires between the specified nodes. |- draws the corner in the opposite direction
 
