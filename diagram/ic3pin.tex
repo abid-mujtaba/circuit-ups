@@ -1,0 +1,38 @@
+% We use tikz to construct a shape corresponding to a 3 pin IC
+%
+% Source: http://www.elfsoft2000.com/projects/multipole.pdf
+
+
+\newlength{\side}               % We define a new length that corresponds to the side of the IC we are constructing
+\setlength{\side}{1.25cm}
+
+\pgfdeclareshape{ic3pin}
+{
+   \anchor{center}{\pgfpointorigin}      % All circuitikz objects must have a 'center' and a 'text' anchor. Within the object/node (0, 0) is at the center and everything is drawn around this
+   \anchor{text}                        % Used to center the text inside the node
+      {\pgfpoint{-.5\wd\pgfnodeparttextbox}{-.5\ht\pgfnodeparttextbox}}
+
+   % Construct custom anchors
+   \savedanchor\icpina{\pgfpoint{0}{0.5\side}}        % Create an anchor with internal name \icpina for pin 1 at the specified point which is on the top of the IC at its center hence the coordinates (0, 0.5\side)
+   \anchor{pin1}{\icpina}                               % We create an anchor with external name pin1 from the saved anchor created above
+
+   \savedanchor\icpinb{\pgfpoint{0}{-0.5\side}}
+   \anchor{pin2}{\icpinb}
+
+   \savedanchor\icpinc{\pgfpoint{0.5\side}{0}}
+   \anchor{pin3}{\icpinc}
+
+   % Now we draw the actual node/object
+   \foregroundpath              % Border and pin numbers are drawn here
+   {
+      \pgfsetlinewidth{0.03cm}
+
+      \pgfpathrectanglecorners{\pgfpoint{-0.5\side}{-0.5\side}}{\pgfpoint{0.5\side}{0.5\side}}
+      \pgfusepath{draw}     % Draw the rectangle defined above
+
+      % Insert pin labels at the specified location with the text aligned with this point as specified (top, bottom, right, etc.)
+      \pgftext[top, at={\pgfpoint{0}{0.425\side}}]{\tiny 1}
+      \pgftext[bottom, at={\pgfpoint{0}{-0.425\side}}]{\tiny 2}
+      \pgftext[right, at={\pgfpoint{0.425\side}{0}}]{\tiny 3}
+   }
+}

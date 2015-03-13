@@ -2,9 +2,13 @@
 
 \documentclass{article}
 
+
 \usepackage{amsmath}
 \usepackage{tikz}
 \usepackage[siunitx]{circuitikz}
+
+% Include the tex code that defines the 3 pin IC we will use for the 7805
+\input{ic3pin}
 
 % We define a new command which uses sub-stack from the amsmath package to create two line labels 
 \newcommand\twoline[2]{$\substack{#1\\#2}$}         % Note that \substack must be containined within the math env $$. The advantage is that we don't have to specify $ around the arguments we provide to \twoline
@@ -82,8 +86,16 @@
 
             \draw (t2.base) -- (7.75, 2) -- (7.5, 2);             % Connect the base of the pnp transistor to the variable resistor using the -- notation. 
 
-            \draw (t2.collector) -| (9.25, 2.5);                  % The -| notation allows us to construct right-angled shorted wires between the specified nodes. |- draws the corner in the opposite direction
+            \draw (9.25, 2) node[ic3pin] (ic3) {\textbf{7805}};
 
+            \draw (t2.collector) -| (ic3.pin1);                  % The -| notation allows us to construct right-angled shorted wires between the specified nodes. |- draws the corner in the opposite direction
+
+            \draw (ic3.pin2) |- (4,0);
+
+            \draw (ic3.pin3) -- (10.5, 2)
+            to [R, l=$\SI{10}{k\ohm}$] (10.5, 1)
+            to [empty led, l={Green}] (10.5, 0) -- (9.25, 0)
+            ;
 
 
          \end{circuitikz}
