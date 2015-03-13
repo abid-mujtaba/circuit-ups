@@ -38,7 +38,6 @@
 
             \draw (1, 0) to[short, o-] (3, 0);          % A similar line is drawn below it.
 
-            \draw (2, 0) node[ground] {};               % We add a monopole (the GND symbol) at the specified location
 
             \draw (0.25, 3) node[] {$+\SI{12}{\volt}$ DC};      % We place free floating text as nodes at specified location
             \draw (0.25, 2.75) node[] {(Input)};
@@ -104,6 +103,17 @@
             to [empty led, l={Green}] (10.5, 0) -- (9.25, 0)
             ;
 
+            \draw (10.5, 0) to[short, -o] (12, 0);
+            \draw (10.5, 2) to[short, -o] (12, 2);
+            \draw (9.25, 3) to[short, -o] (12, 3);
+
+            \draw (6, 0) node[ground] {};               % We add a monopole (the GND symbol) at the specified location
+
+            \draw (12.75, 2) node[] {+$\SI{5}{\volt}$ DC};
+            \draw (12.75, 1.75) node[] {(Output)};
+
+            \draw (12.75, 3) node[] {+$\SI{12}{\volt}$ DC};
+            \draw (12.75, 2.75) node[] {(Output)};
 
          \end{circuitikz}
 
