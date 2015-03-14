@@ -13,7 +13,7 @@
       {\pgfpoint{-.5\wd\pgfnodeparttextbox}{-.5\ht\pgfnodeparttextbox}}
 
    % Construct custom anchors
-   \savedanchor\icpina{\pgfpoint{0}{0.5\side}}        % Create an anchor with internal name \icpina for pin 1 at the specified point which is on the top of the IC at its center hence the coordinates (0, 0.5\side)
+   \savedanchor\icpina{\pgfpoint{-0.5\side}{0}}        % Create an anchor with internal name \icpina for pin 1 at the specified point which is on the top of the IC at its center hence the coordinates (0, 0.5\side)
    \anchor{pin1}{\icpina}                               % We create an anchor with external name pin1 from the saved anchor created above
 
    \savedanchor\icpinb{\pgfpoint{0}{-0.5\side}}
@@ -31,7 +31,7 @@
       \pgfusepath{draw}     % Draw the rectangle defined above
 
       % Insert pin labels at the specified location with the text aligned with this point as specified (top, bottom, right, etc.)
-      \pgftext[top, at={\pgfpoint{0}{0.425\side}}]{\tiny 1}
+      \pgftext[top, at={\pgfpoint{-0.425\side}{0}}]{\tiny 1}
       \pgftext[bottom, at={\pgfpoint{0}{-0.425\side}}]{\tiny 2}
       \pgftext[right, at={\pgfpoint{0.425\side}{0}}]{\tiny 3}
    }

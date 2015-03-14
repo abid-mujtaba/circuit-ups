@@ -81,40 +81,44 @@
 
             \draw (6.25, 2) -- (6.25, 2.5) -| (7, 2.25);                 % We draw the shorted path from the wire to the arrow on top of the potentiometer
 
-            \draw (8.25, 3)
-            to[Tpnp, n=t2] (7.25, 3) -- (6, 3)            % Since we want a rotated pnp transistor with the current flowing left to right we use the 'Tpnp' (T at the start( notation to put the transistor in the path. We use the 'n' option to name it 't2' which will give us access to its anchors later.
+            \draw (8.5, 1.5)
+            to[Tpnp, n=t2] (8.5, 2.5)           % Since we want a rotated pnp transistor with the current flowing left to right we use the 'Tpnp' (T at the start( notation to put the transistor in the path. We use the 'n' option to name it 't2' which will give us access to its anchors later.
             ;
 
-            \draw (7.75, 3.25) node[] {TIP 127};        % Place the label of the transistor as a separate empty node (avoid complications due to rotation and the like)
+            \draw (6,3) -| (t2.emitter);
+
+            \draw (8, 2.5) node[] {TIP 127};        % Place the label of the transistor as a separate empty node (avoid complications due to rotation and the like)
 
             \draw (t2.base) -- (7.75, 2) -- (7.5, 2);             % Connect the base of the pnp transistor to the variable resistor using the -- notation. 
 
-            \draw (9.25, 2) node[ic3pin] (ic3) {\textbf{7805}};
+            \draw (9.75, 1.25) node[ic3pin] (ic3) {\textbf{7805}};
 
-            \draw (9.1, 2.75) node[] {IN};
-            \draw (8.95, 1.25) node[] {COM};
-            \draw (10.2, 2.1) node[] {OUT};
+            \draw (8.95, 1.15) node[] {IN};
+            \draw (9.45, 0.5) node[] {COM};
+            \draw (10.7, 1.4) node[] {OUT};
 
-            \draw (t2.collector) -| (ic3.pin1);                  % The -| notation allows us to construct right-angled shorted wires between the specified nodes. |- draws the corner in the opposite direction
+            \draw (t2.collector) -- (ic3.pin1);                  % The -| notation allows us to construct right-angled shorted wires between the specified nodes. |- draws the corner in the opposite direction
 
             \draw (ic3.pin2) |- (4,0);
 
-            \draw (ic3.pin3) -- (10.5, 2)
-            to [R, l=$\SI{10}{k\ohm}$] (10.5, 1)
-            to [empty led, l={Green}] (10.5, 0) -- (9.25, 0)
+            \draw (ic3.pin3) -- (11, 1.25)
+            to [R, l=$\SI{10}{k\ohm}$] (11, 0.5)
+            to [empty led, l={Green}] (11, 0) -- (9.25, 0)
             ;
 
             \draw (10.5, 0) to[short, -o] (12, 0);
-            \draw (10.5, 2) to[short, -o] (12, 2);
-            \draw (9.25, 3) to[short, -o] (12, 3);
+            \draw (11, 1.25) to [short, -o] (12, 1.25);
+            \draw (8.25, 3) to[short, -o] (12, 3);
 
             \draw (6, 0) node[ground] {};               % We add a monopole (the GND symbol) at the specified location
 
-            \draw (12.75, 2) node[] {+$\SI{5}{\volt}$ DC};
-            \draw (12.75, 1.75) node[] {(Output)};
+            \draw (12.75, 1.25) node[] {+$\SI{5}{\volt}$ DC};
+            \draw (12.75, 1) node[] {(Output)};
 
             \draw (12.75, 3) node[] {+$\SI{12}{\volt}$ DC};
             \draw (12.75, 2.75) node[] {(Output)};
+
+            \draw (12.75, 0) node[] {DC GND};
 
          \end{circuitikz}
 
