@@ -76,21 +76,21 @@
 
             \draw (t1.base) -- (4.75, 1.5);
 
-            \draw (6, 2) -- (6.5, 2)
-            to[pR, l_=$\SI{22}{k\ohm}$] (7.5, 2)
-            ;
+            %\draw (6, 2) -- (6.5, 2)
+            %to[pR, l_=$\SI{22}{k\ohm}$] (7.5, 2)
+            %;
 
-            \draw (6.25, 2) -- (6.25, 2.5) -| (7, 2.25);                 % We draw the shorted path from the wire to the arrow on top of the potentiometer
+            %\draw (6.25, 2) -- (6.25, 2.5) -| (7, 2.25);                 % We draw the shorted path from the wire to the arrow on top of the potentiometer
 
-            \draw (8.5, 1.5)
-            to[Tpnp, n=t2] (8.5, 2.5)           % Since we want a rotated pnp transistor with the current flowing left to right we use the 'Tpnp' (T at the start( notation to put the transistor in the path. We use the 'n' option to name it 't2' which will give us access to its anchors later.
-            ;
+            %\draw (8.5, 1.5)
+            %to[Tpnp, n=t2] (8.5, 2.5)           % Since we want a rotated pnp transistor with the current flowing left to right we use the 'Tpnp' (T at the start( notation to put the transistor in the path. We use the 'n' option to name it 't2' which will give us access to its anchors later.
+            %;
 
-            \draw (6,3) -| (t2.emitter);
+            %\draw (6,3) -| (t2.emitter);
 
-            \draw (t2.emitter) node[above=-2mm, left=1mm] {TIP 127};
+            %\draw (t2.emitter) node[above=-2mm, left=1mm] {TIP 127};
 
-            \draw (t2.base) -- (7.75, 2) -- (7.5, 2);             % Connect the base of the pnp transistor to the variable resistor using the -- notation. 
+            %\draw (t2.base) -- (7.75, 2) -- (7.5, 2);             % Connect the base of the pnp transistor to the variable resistor using the -- notation. 
 
             \draw (9.75, 1.25) node[ic3pin] (ic3) {\textbf{7805}};
 
@@ -99,7 +99,7 @@
             \draw (ic3.pin2) node[below=1mm, left=-1mm] {COM};
             \draw (ic3.pin3) node[above=1mm, right=-1mm] {OUT};
 
-            \draw (t2.collector) -- (ic3.pin1);                  % The -| notation allows us to construct right-angled shorted wires between the specified nodes. |- draws the corner in the opposite direction
+            %\draw (t2.collector) -- (ic3.pin1);                  % The -| notation allows us to construct right-angled shorted wires between the specified nodes. |- draws the corner in the opposite direction
 
             \draw (ic3.pin2) |- (4,0);
 
