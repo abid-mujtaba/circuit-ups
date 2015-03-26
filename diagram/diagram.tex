@@ -35,15 +35,16 @@
 
 
             % Begin specifying the circuit
-            \draw (1, 3) to[short, o-] (3, 3);          % We start with a line with a circular node on one end (from (1,3) to (3,3) on the grid)
+            \draw (1, 3) 
+               node[left=1ex, name=dc_in] {$+\SI{12}{\volt}$ DC}         % We want to place the text "12V DC" to the left of (1, 3) so we specify 'left=1ex' which places the node to the left of (1, 3) and adds an additional 1ex of space. We also specify a name for the node 'dc_in' which we use below to refer to it
+               to[short, o-] (3, 3)          % We start with a line with a circular node on one end (from (1,3) to (3,3) on the grid)
+               (dc_in) node[below] {(Input)}            % We want the text '(Input)' to appear just below the '12V DC' text so we use the name of the node defined above, 'dc_in', as the position for this node but specify that this node should be drawn below the specified position. This allows us to place this text relative to existing nodes
+            ;
 
-            \draw (1, 0) to[short, o-] (3, 0);          % A similar line is drawn below it from the (1, 0) node to (3, 0)
-
-
-            \draw (1, 3) node[left=1ex, name=dc_in] {$+\SI{12}{\volt}$ DC};         % We want to place the text "12V DC" to the left of (1, 3) so we specify 'left=1ex' which places the node to the left of (1, 3) and adds an additional 1ex of space. We also specify a name for the node 'dc_in' which we use below to refer to it
-            \draw (dc_in) node[below] {(Input)};            % We want the text '(Input)' to appear just below the '12V DC' text so we use the name of the node defined above, 'dc_in', as the position for this node but specify that this node should be drawn below the specified position. This allows us to place this text relative to existing nodes
-
-            \draw (1, 0) node[left=1ex] {DC GND};
+            \draw (1, 0) 
+               node[left=1ex] {DC GND}
+               to[short, o-] (3, 0)          % A similar line is drawn below it from the (1, 0) node to (3, 0)
+            ;
 
             \draw (3, 0)                                % We draw a path from (3,0). Every segment contains a component or a short with the ending co.ods at the end
             to[battery, l=\twoline{\SI{12}{\volt}}{\SI{4.5}{\ampere\hour}}] (3, 2)      % Note the use of \twoline for two line labels
@@ -107,18 +108,21 @@
             to [empty led, l={Green}] (11, 0) -- (9.25, 0)
             ;
 
-            \draw (10.5, 0) to[short, -o] (12, 0);
-            \draw (11, 1.25) to [short, -o] (12, 1.25);
-            \draw (8.25, 3) to[short, -o] (12, 3);
+            \draw (10.5, 0) 
+               to[short, -o] (12, 0) 
+               node[right=1ex] {DC GND};        % This text node is defined with reference to the original point (10.5, 0)
 
-            \draw (12, 0) node[right=1ex] {DC GND};
+            \draw (11, 1.25) 
+               to [short, -o] (12, 1.25) 
+               node[right=1ex, name=dc_5] {+$\SI{5}{\volt}$ DC}
+               (dc_5) node[below] {(Output)}                           % We want the text '(Output)' to appear below the previous node (5V DC) so we specify its name to denote that the instructions that follow are with respect to this new location
+            ;
 
-            \draw (12, 1.25) node[right=1ex, name=dc_5] {+$\SI{5}{\volt}$ DC};
-            \draw (dc_5) node[below] {(Output)};
-
-            \draw (12, 3) node[right=1ex, name=dc_12] {+$\SI{12}{\volt}$ DC};
-            \draw (dc_12) node[below] {(Output)};
-
+            \draw (8.25, 3)
+               to[short, -o] (12, 3)
+               node[right=1ex, name=dc_12] {+$\SI{12}{\volt}$ DC}
+               (dc_12) node[below] {(Output)}
+            ;
 
             \draw (6, 0) node[ground] {};               % We add a monopole (the GND symbol) at the specified location
 
