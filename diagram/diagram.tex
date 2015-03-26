@@ -33,17 +33,19 @@
             % We increase the size of the battery for aesthetic reasons
             \tikzset{battery/.append style={bipoles/length=1cm}}
 
+            \coordinate (dc_gnd) at (1, 0);            % We define a coordinate named 'dc_gnd' at the position (1, 0) so now (dc_gnd) is equivalent to (1, 0)
+
 
             % Begin specifying the circuit
             \draw (1, 3) to[short, o-] (3, 3);          % We start with a line with a circular node on one end (from (1,3) to (3,3) on the grid)
 
-            \draw (1, 0) to[short, o-] (3, 0);          % A similar line is drawn below it.
+            \draw (dc_gnd) to[short, o-] (3, 0);          % A similar line is drawn below it from the dc_gnd node to (3, 0)
 
 
             \draw (0.25, 3) node[] {$+\SI{12}{\volt}$ DC};      % We place free floating text as nodes at specified location
             \draw (0.25, 2.75) node[] {(Input)};
 
-            \draw (0.25, 0) node[] {DC GND};
+            \draw (dc_gnd) node[left=1ex] {DC GND};             % We place the "DC GND" label as a node to the left of the dc_gnd = (1, 0) position and specify that an additional 1ex space be inserted between the node and the specified position
 
             \draw (3, 0)                                % We draw a path from (3,0). Every segment contains a component or a short with the ending co.ods at the end
             to[battery, l=\twoline{\SI{12}{\volt}}{\SI{4.5}{\ampere\hour}}] (3, 2)      % Note the use of \twoline for two line labels
