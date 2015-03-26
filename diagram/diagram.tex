@@ -99,8 +99,9 @@
             \draw (ic3.pin2) node[below=1mm, left=-1mm] {COM};
             \draw (ic3.pin3) node[above=1mm, right=-1mm] {OUT};
 
-
-            \draw (ic3.pin2) |- (4,0);
+            \draw 
+               (ic3.pin1) -- (9.75, 3)
+               (ic3.pin2) |- (4,0);
 
             \draw (ic3.pin3) -- (11, 1.25)
             to [R, l=$\SI{10}{k\ohm}$] (11, 0.5)
