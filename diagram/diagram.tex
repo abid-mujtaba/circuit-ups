@@ -87,15 +87,16 @@
 
             \draw (6,3) -| (t2.emitter);
 
-            \draw (8, 2.5) node[] {TIP 127};        % Place the label of the transistor as a separate empty node (avoid complications due to rotation and the like)
+            \draw (t2.emitter) node[above=-2mm, left=1mm] {TIP 127};
 
             \draw (t2.base) -- (7.75, 2) -- (7.5, 2);             % Connect the base of the pnp transistor to the variable resistor using the -- notation. 
 
             \draw (9.75, 1.25) node[ic3pin] (ic3) {\textbf{7805}};
 
-            \draw (8.95, 1.15) node[] {IN};
-            \draw (9.45, 0.5) node[] {COM};
-            \draw (10.7, 1.4) node[] {OUT};
+            % Add labels for the IC3 pins
+            \draw (ic3.pin1) node[above=1mm, left=-1mm] {IN};
+            \draw (ic3.pin2) node[below=1mm, left=-1mm] {COM};
+            \draw (ic3.pin3) node[above=1mm, right=-1mm] {OUT};
 
             \draw (t2.collector) -- (ic3.pin1);                  % The -| notation allows us to construct right-angled shorted wires between the specified nodes. |- draws the corner in the opposite direction
 
@@ -110,15 +111,16 @@
             \draw (11, 1.25) to [short, -o] (12, 1.25);
             \draw (8.25, 3) to[short, -o] (12, 3);
 
+            \draw (12, 0) node[right=1ex] {DC GND};
+
+            \draw (12, 1.25) node[right=1ex, name=dc_5] {+$\SI{5}{\volt}$ DC};
+            \draw (dc_5) node[below] {(Output)};
+
+            \draw (12, 3) node[right=1ex, name=dc_12] {+$\SI{12}{\volt}$ DC};
+            \draw (dc_12) node[below] {(Output)};
+
+
             \draw (6, 0) node[ground] {};               % We add a monopole (the GND symbol) at the specified location
-
-            \draw (12.75, 1.25) node[] {+$\SI{5}{\volt}$ DC};
-            \draw (12.75, 1) node[] {(Output)};
-
-            \draw (12.75, 3) node[] {+$\SI{12}{\volt}$ DC};
-            \draw (12.75, 2.75) node[] {(Output)};
-
-            \draw (12.75, 0) node[] {DC GND};
 
          \end{circuitikz}
 
